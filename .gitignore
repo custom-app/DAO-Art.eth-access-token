@@ -1,0 +1,5 @@
+.idea
+node_modules
+token-metadata.json
+contract-metadata.json
+build
