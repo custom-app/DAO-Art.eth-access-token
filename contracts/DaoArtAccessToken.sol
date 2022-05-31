@@ -94,19 +94,6 @@ contract DaoArtAccessToken is AccessControl, ERC721Enumerable {
         _mint(_msgSender(), metaUri);
     }
 
-    /*
-     * @dev Mint dao art access token without payment
-     *
-     * @param id - id of token to mint (must equal to tokensCount)
-     * @param to - receiver address
-     * @param metaUri - uri to token metadata
-    */
-    function mint(uint256 id, address to, string memory metaUri) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        require(balanceOf(to) == 0, "DaoArtToken: token already owned for this address");
-        require(id == tokensCount, "DaoArtToken: wrong new token id");
-        _mint(to, metaUri);
-    }
-
     /// @dev get all token params with one method
     function getTokenParams() external view returns (
         uint256 _startPrice,

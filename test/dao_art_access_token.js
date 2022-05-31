@@ -49,13 +49,6 @@ contract("DaoArtAccessToken", function (accounts) {
       "DaoArtToken: wrong transaction value");
   });
 
-  it("mint should be successful", async() => {
-    const instance = await DaoArtAccessToken.deployed();
-    await instance.mint("2", accounts[3], "", {from: accounts[1]});
-    const owner = await instance.ownerOf(new BN(2));
-    assert.equal(owner, accounts[3]);
-  });
-
   it("set wallet should be successful", async () => {
     const instance = await DaoArtAccessToken.deployed();
     await instance.setWallet(accounts[2], {from: accounts[0]});
@@ -65,7 +58,7 @@ contract("DaoArtAccessToken", function (accounts) {
     const instance = await DaoArtAccessToken.deployed();
     await instance.setTokenParams(
       new BN(5).mul(new BN(10).pow(new BN(16))),
-      new BN("3"),
+      new BN("2"),
       new BN(5).mul(new BN(10).pow(new BN(16))),
       new BN("1000"),
       {from: accounts[2]})
@@ -73,6 +66,6 @@ contract("DaoArtAccessToken", function (accounts) {
 
   it("buy token with increased price should be successful", async() => {
     const instance = await DaoArtAccessToken.deployed();
-    await instance.buyToken("3", "", {from: accounts[4], value: new BN(10).mul(new BN(10).pow(new BN(16)))});
+    await instance.buyToken("2", "", {from: accounts[4], value: new BN(10).mul(new BN(10).pow(new BN(16)))});
   });
 });
