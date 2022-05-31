@@ -82,11 +82,13 @@ contract DaoArtAccessToken is AccessControl, ERC721Enumerable {
     /*
      * @dev Buy dao art access token
      *
+     * @param id - id of token to mint (must equal to tokensCount)
      * @param metaUri - uri to token metadata
     */
-    function buyToken(string memory metaUri) external payable {
+    function buyToken(uint256 id, string memory metaUri) external payable {
         require(balanceOf(_msgSender()) == 0, "DaoArtToken: token already owned for this address");
-        uint256 resultPrice = startPrice + stepIncrease*(tokensCount/step);
+        require(id == tokensCount, "DaoArtToken: wrong new token id");
+        uint256 resultPrice = startPrice + stepIncrease * (tokensCount / step);
         require(msg.value == resultPrice, "DaoArtToken: wrong transaction value");
         require(wallet.send(resultPrice), "DaoArtToken: transfer wei failed");
         _mint(_msgSender(), metaUri);
@@ -95,12 +97,25 @@ contract DaoArtAccessToken is AccessControl, ERC721Enumerable {
     /*
      * @dev Mint dao art access token without payment
      *
+     * @param id - id of token to mint (must equal to tokensCount)
      * @param to - receiver address
      * @param metaUri - uri to token metadata
     */
-    function mint(address to, string memory metaUri) external onlyRole(DEFAULT_ADMIN_ROLE) {
+    function mint(uint256 id, address to, string memory metaUri) external onlyRole(DEFAULT_ADMIN_ROLE) {
         require(balanceOf(to) == 0, "DaoArtToken: token already owned for this address");
+        require(id == tokensCount, "DaoArtToken: wrong new token id");
         _mint(to, metaUri);
+    }
+
+    /// @dev get all token params with one method
+    function getTokenParams() external view returns (
+        uint256 _startPrice,
+        uint256 _step,
+        uint256 _stepValue,
+        uint256 _totalSupply,
+        uint256 _currentSupply
+    ) {
+        return (startPrice, step, stepIncrease, tokensSupply, tokensCount);
     }
 
     /// @dev supports interface for inheritance conflict resolving.
@@ -129,7 +144,7 @@ contract DaoArtAccessToken is AccessControl, ERC721Enumerable {
 
     function _mint(address to, string memory metaUri) internal {
         tokensCount++;
-        tokenUris[tokensCount-1] = metaUri;
-        _safeMint(to, tokensCount-1);
+        tokenUris[tokensCount - 1] = metaUri;
+        _safeMint(to, tokensCount - 1);
     }
 }
