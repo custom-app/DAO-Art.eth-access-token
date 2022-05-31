@@ -22,6 +22,7 @@
     "moralis": "^1.8.0",
     "os-browserify": "^0.3.0",
     "react": "^18.1.0",
+    "react-blockies": "^1.4.1",
     "react-dom": "^18.1.0",
     "react-moralis": "^1.4.0",
     "react-scripts": "5.0.1",
