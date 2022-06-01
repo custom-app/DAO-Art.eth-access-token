@@ -48,10 +48,19 @@ contract DaoArtAccessToken is AccessControl, Ownable, ERC721Enumerable {
      * @dev Set wallet to get payments (also get admin permission)
     */
     function setWallet(address payable _wallet) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        _setWallet(_wallet);
+    }
+
+    /// @dev for Ownable compatability
+    function transferOwnership(address newOwner) public virtual override onlyRole(DEFAULT_ADMIN_ROLE) {
+        _setWallet(payable(newOwner));
+    }
+
+    /// @dev for Ownable compatability
+    function renounceOwnership() public virtual override onlyRole(DEFAULT_ADMIN_ROLE) {
         revokeRole(DEFAULT_ADMIN_ROLE, wallet);
-        wallet = _wallet;
-        grantRole(DEFAULT_ADMIN_ROLE, _wallet);
-        _transferOwnership(_wallet);
+        _transferOwnership(address(0));
+        wallet = payable(address(0));
     }
 
     /*
@@ -89,12 +98,17 @@ contract DaoArtAccessToken is AccessControl, Ownable, ERC721Enumerable {
      * @param metaUri - uri to token metadata
     */
     function buyToken(uint256 id, string memory metaUri) external payable {
+        require(wallet != address(0), "DaoArtToken: sale stopped");
         require(balanceOf(_msgSender()) == 0, "DaoArtToken: token already owned for this address");
         require(id == tokensCount, "DaoArtToken: wrong new token id");
+        require(id < tokensSupply, "DaoArtToken: all tokens sold");
         uint256 resultPrice = startPrice + stepIncrease * (tokensCount / step);
         require(msg.value == resultPrice, "DaoArtToken: wrong transaction value");
         require(wallet.send(resultPrice), "DaoArtToken: transfer wei failed");
-        _mint(_msgSender(), metaUri);
+
+        tokenUris[id] = metaUri;
+        _safeMint(_msgSender(), id);
+        tokensCount++;
     }
 
     /// @dev get all token params with one method
@@ -132,9 +146,14 @@ contract DaoArtAccessToken is AccessControl, Ownable, ERC721Enumerable {
         return contractUri;
     }
 
-    function _mint(address to, string memory metaUri) internal {
-        tokensCount++;
-        tokenUris[tokensCount - 1] = metaUri;
-        _safeMint(to, tokensCount - 1);
+    /*
+     * @dev Set wallet to get payments (also get admin permission)
+    */
+    function _setWallet(address payable _wallet) internal {
+        require(_wallet != address(0), "DaoArtToken: new wallet is the zero address");
+        revokeRole(DEFAULT_ADMIN_ROLE, wallet);
+        wallet = _wallet;
+        grantRole(DEFAULT_ADMIN_ROLE, _wallet);
+        _transferOwnership(_wallet);
     }
 }

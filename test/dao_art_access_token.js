@@ -60,12 +60,19 @@ contract("DaoArtAccessToken", function (accounts) {
       new BN(5).mul(new BN(10).pow(new BN(16))),
       new BN("2"),
       new BN(5).mul(new BN(10).pow(new BN(16))),
-      new BN("1000"),
+      new BN("3"),
       {from: accounts[2]})
   });
 
   it("buy token with increased price should be successful", async() => {
     const instance = await DaoArtAccessToken.deployed();
     await instance.buyToken("2", "", {from: accounts[4], value: new BN(10).mul(new BN(10).pow(new BN(16)))});
+  });
+
+  it("buy token should fail if limit reached", async() => {
+    const instance = await DaoArtAccessToken.deployed();
+    await truffleAssert.reverts(
+      instance.buyToken("3", "", {from: accounts[5], value: new BN(10).mul(new BN(10).pow(new BN(16)))}),
+      "DaoArtToken: all tokens sold")
   });
 });
