@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {MoralisProvider} from 'react-moralis'
+import AppThemeProvider from './theme/app-theme-provider';
 
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
 const SERVER_URL = process.env.REACT_APP_MORALIS_SERVER_URL;
@@ -14,16 +15,18 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    {
-      APP_ID && SERVER_URL && (
-        <MoralisProvider
-          appId={APP_ID}
-          serverUrl={SERVER_URL}
-        >
-          <App/>
-        </MoralisProvider>
-      )
-    }
+    <AppThemeProvider>
+      {
+        APP_ID && SERVER_URL && (
+          <MoralisProvider
+            appId={APP_ID}
+            serverUrl={SERVER_URL}
+          >
+            <App/>
+          </MoralisProvider>
+        )
+      }
+    </AppThemeProvider>
   </React.StrictMode>
 );
 
