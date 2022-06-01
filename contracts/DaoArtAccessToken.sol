@@ -4,8 +4,9 @@ pragma solidity >=0.4.22 <0.9.0;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract DaoArtAccessToken is AccessControl, ERC721Enumerable {
+contract DaoArtAccessToken is AccessControl, Ownable, ERC721Enumerable {
     string private contractUri;
     address payable private wallet;
     mapping(uint256 => string) public tokenUris;
@@ -31,7 +32,7 @@ contract DaoArtAccessToken is AccessControl, ERC721Enumerable {
         uint256 _step,
         uint256 _stepIncrease,
         uint256 _tokensSupply
-    ) ERC721("DAO-Art.eth Access token", "DAOART") {
+    ) ERC721("DAO-Art.eth Access token", "DAOART") Ownable() {
         contractUri = _contractUri;
         wallet = _wallet;
         startPrice = _startPrice;
@@ -40,6 +41,7 @@ contract DaoArtAccessToken is AccessControl, ERC721Enumerable {
         tokensSupply = _tokensSupply;
         _grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _grantRole(DEFAULT_ADMIN_ROLE, _wallet);
+        _transferOwnership(_wallet);
     }
 
     /*
@@ -49,6 +51,7 @@ contract DaoArtAccessToken is AccessControl, ERC721Enumerable {
         revokeRole(DEFAULT_ADMIN_ROLE, wallet);
         wallet = _wallet;
         grantRole(DEFAULT_ADMIN_ROLE, _wallet);
+        _transferOwnership(_wallet);
     }
 
     /*
