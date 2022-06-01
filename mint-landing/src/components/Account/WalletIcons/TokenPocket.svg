@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 751 751" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="Слой-1" transform="matrix(1,0,0,1,123.727,110.871)">
+        <g id="g6137" transform="matrix(3.68804,0,0,-3.68804,-3364.55,10332.9)">
+            <g id="g6139">
+                <clipPath id="_clip1">
+                    <path d="M980.42,2831.81C1036.58,2831.81 1082.1,2786.29 1082.1,2730.13C1082.1,2673.97 1036.58,2628.45 980.42,2628.45C924.264,2628.45 878.74,2673.97 878.74,2730.13C878.74,2786.29 924.264,2831.81 980.42,2831.81Z"/>
+                </clipPath>
+                <g clip-path="url(#_clip1)">
+                    <g id="g6145">
+                        <g id="g6151">
+                            <rect id="path6159" x="0" y="0" width="3472.44" height="12858" style="fill:url(#_Linear2);fill-rule:nonzero;"/>
+                        </g>
+                        <g id="g6161">
+                            <rect id="path6169" x="0" y="0" width="3472.44" height="12858" style="fill:url(#_Linear3);fill-rule:nonzero;"/>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="g6171" transform="matrix(3.68804,0,0,-3.68804,-3364.55,10332.9)">
+            <g id="g6173">
+                <g id="g6231">
+                    <g id="g6229" opacity="0.6">
+                        <g id="g6227">
+                            <g id="g6225">
+                                <g id="g6223">
+                                    <g id="g6221">
+                                        <g id="g6219">
+                                            <clipPath id="_clip4">
+                                                <rect x="924.094" y="2667.4" width="56.693" height="110.551"/>
+                                            </clipPath>
+                                            <g clip-path="url(#_clip4)">
+                                                <g id="g6217">
+                                                    <g id="g6215">
+                                                        <clipPath id="_clip5">
+                                                            <path d="M978.417,2751.07L974.718,2751.07L974.718,2777.47L925.792,2777.47C924.855,2777.47 924.094,2776.72 924.094,2775.78L924.094,2738.57C924.094,2737.63 924.855,2736.87 925.792,2736.87L944.466,2736.87L944.466,2669.21C944.466,2668.27 945.226,2667.51 946.164,2667.51L976.72,2667.51C977.657,2667.51 978.417,2668.27 978.417,2669.21L978.417,2751.07Z"/>
+                                                        </clipPath>
+                                                        <g clip-path="url(#_clip5)">
+                                                            <g id="g6213">
+                                                                <clipPath id="_clip6">
+                                                                    <rect x="921.26" y="2667.4" width="59.528" height="110.551"/>
+                                                                </clipPath>
+                                                                <g clip-path="url(#_clip6)">
+                                                                    <rect id="path6211" x="909.921" y="2653.34" width="82.67" height="138.305" style="fill:white;fill-rule:nonzero;"/>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="g6233" transform="matrix(3.68804,0,0,-3.68804,-3364.55,10332.9)">
+            <g id="g6235">
+                <clipPath id="_clip7">
+                    <path d="M1010.6,2789.29L966.691,2789.29C965.755,2789.29 964.996,2788.53 964.996,2787.6L964.996,2681.11C964.996,2680.17 965.755,2679.41 966.691,2679.41L997.186,2679.41C998.122,2679.41 998.88,2680.17 998.88,2681.11L998.88,2708.15L1010.6,2708.15C1033.06,2708.15 1051.26,2726.32 1051.26,2748.72C1051.26,2771.13 1033.06,2789.29 1010.6,2789.29"/>
+                </clipPath>
+                <g clip-path="url(#_clip7)">
+                    <g id="g6241">
+                        <rect id="path6247" x="950.823" y="2665.24" width="114.612" height="138.224" style="fill:white;fill-rule:nonzero;"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <defs>
+        <linearGradient id="_Linear2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.77738e-13,-2902.68,2902.68,1.77738e-13,878.74,2831.81)"><stop offset="0" style="stop-color:rgb(43,175,255);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(39,97,231);stop-opacity:1"/></linearGradient>
+        <linearGradient id="_Linear3" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-200.317,-203.36,203.36,-200.317,1082.1,2831.81)"><stop offset="0" style="stop-color:rgb(43,175,255);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(39,97,231);stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>
