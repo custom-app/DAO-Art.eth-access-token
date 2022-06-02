@@ -6,9 +6,7 @@ import {useCallback, useState} from "react";
 import Address from "../Address/Address";
 import {SelectOutlined} from "@ant-design/icons";
 import {
-  addNetworkByChainId,
-  ChainIdHex,
-  changeNetwork,
+  ChainIdHex, changeAndAddNetwork,
   defaultChainId,
   getExplorer,
 } from "../../helpers/networks";
@@ -105,13 +103,7 @@ function Account(
                       window.localStorage.setItem("connectorId", connectorId);
                       setIsAuthModalVisible(false);
                       const web3Provider = await Moralis.enableWeb3();
-                      try {
-                        await changeNetwork(web3Provider, defaultChainId)
-                      } catch (e: any) {
-                        if (e?.code === 4902) {
-                          await addNetworkByChainId(web3Provider, defaultChainId)
-                        }
-                      }
+                      await changeAndAddNetwork(web3Provider, defaultChainId)
                     } catch (e) {
                       console.error(e);
                     }

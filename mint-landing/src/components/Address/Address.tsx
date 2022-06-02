@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { getEllipsisTxt } from "../../helpers/formatters";
+import {useEffect} from "react";
+import {useState} from "react";
+import {getEllipsisTxt} from "../../helpers/formatters";
 import Blockie from "../Blockie";
 import "./identicon.css";
-import { useMoralis } from "react-moralis";
-import { Skeleton } from "antd";
+import {useMoralis} from "react-moralis";
+import {Skeleton} from "@mui/material";
 
 const styles = {
   address: {
@@ -26,7 +26,7 @@ export interface AddressProps {
 }
 
 function Address(props: AddressProps) {
-  const { account, isAuthenticated } = useMoralis();
+  const {account, isAuthenticated} = useMoralis();
   const [address, setAddress] = useState<string | null | false>();
   const [isClicked, setIsClicked] = useState(false);
 
@@ -36,7 +36,7 @@ function Address(props: AddressProps) {
 
   if (!address)
     return (
-      <Skeleton paragraph={{ rows: 1, width: "100%" }} title={false} active />
+      <Skeleton height={36} width="100%"/>
     );
 
   const Copy = () => (
@@ -50,26 +50,26 @@ function Address(props: AddressProps) {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      style={{ cursor: "pointer" }}
+      style={{cursor: "pointer"}}
       onClick={() => {
         navigator.clipboard.writeText(address || '');
         setIsClicked(true);
       }}
     >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M15 3v4a1 1 0 0 0 1 1h4" />
-      <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2z" />
-      <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M15 3v4a1 1 0 0 0 1 1h4"/>
+      <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2z"/>
+      <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2"/>
       <title id="copy-address">Copy Address</title>
     </svg>
   );
 
   return (
-    <div style={{ ...styles.address, ...props.style }}>
-      {props.avatar === "left" && <Blockie address={address} size={7} />}
+    <div style={{...styles.address, ...props.style}}>
+      {props.avatar === "left" && <Blockie address={address} size={7}/>}
       <p>{props.size ? getEllipsisTxt(address, props.size) : address}</p>
-      {props.avatar === "right" && <Blockie address={address} size={7} />}
-      {props.copyable && (isClicked ? <Check /> : <Copy />)}
+      {props.avatar === "right" && <Blockie address={address} size={7}/>}
+      {props.copyable && (isClicked ? <Check/> : <Copy/>)}
     </div>
   );
 }
@@ -87,8 +87,8 @@ const Check = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path d="M5 12l5 5l10 -10" />
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M5 12l5 5l10 -10"/>
     <title id="copied-address">Copied!</title>
   </svg>
 );

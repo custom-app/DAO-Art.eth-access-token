@@ -108,7 +108,7 @@ interface AddEthereumChainParameter {
   iconUrls?: string[]; // Currently ignored.
 }
 
-export function addNetworkByChainId(provider: Moralis.MoralisWeb3Provider, chainId: ChainIdHex): any {
+export async function addNetworkByChainId(provider: Moralis.MoralisWeb3Provider, chainId: ChainIdHex): Promise<any> {
   const config = networkConfigs[chainId] as any; // sorry, no time for proper types
   return addNetwork(provider, {
     chainId,
@@ -128,4 +128,16 @@ export function addNetwork(provider: Moralis.MoralisWeb3Provider, param: AddEthe
     'wallet_addEthereumChain',
     [param]
   )
+}
+
+export async function changeAndAddNetwork(provider: Moralis.MoralisWeb3Provider, chainId: ChainIdHex): Promise<any> {
+  try {
+    return await changeNetwork(provider, chainId)
+  } catch (e: any) {
+    if (e?.code === 4902) {
+      return await addNetworkByChainId(provider, chainId)
+    } else {
+      throw e
+    }
+  }
 }

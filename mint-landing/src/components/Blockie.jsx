@@ -1,6 +1,6 @@
-import { Skeleton } from "antd";
+import {Skeleton} from "@mui/material";
 import Blockies from "react-blockies";
-import { useMoralis } from "react-moralis";
+import {useMoralis} from "react-moralis";
 
 /**
  * Shows a blockie image for the provided wallet address
@@ -9,21 +9,21 @@ import { useMoralis } from "react-moralis";
  */
 
 function Blockie(props) {
-  const { account, isAuthenticated } = useMoralis();
-  if (!props.address && (!account || !isAuthenticated))
-    return <Skeleton.Avatar active size={40} />;
+    const {account, isAuthenticated} = useMoralis();
+    if (!props.address && (!account || !isAuthenticated))
+        return <Skeleton variant="circular" width={40} height={40}/>;
 
-  return (
-    <Blockies
-      seed={
-        props.currentWallet
-          ? account.toLowerCase()
-          : props.address.toLowerCase()
-      }
-      className="identicon"
-      {...props}
-    />
-  );
+    return (
+        <Blockies
+            seed={
+                props.currentWallet
+                    ? account.toLowerCase()
+                    : props.address.toLowerCase()
+            }
+            className="identicon"
+            {...props}
+        />
+    );
 }
 
 export default Blockie;
