@@ -17,9 +17,17 @@ const styles = {
   },
 };
 
-function Address(props) {
+export interface AddressProps {
+  address?: string,
+  avatar?: 'left' | 'right',
+  size?: number,
+  copyable?: boolean,
+  style?: Object,
+}
+
+function Address(props: AddressProps) {
   const { account, isAuthenticated } = useMoralis();
-  const [address, setAddress] = useState();
+  const [address, setAddress] = useState<string | null | false>();
   const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
@@ -44,7 +52,7 @@ function Address(props) {
       strokeLinejoin="round"
       style={{ cursor: "pointer" }}
       onClick={() => {
-        navigator.clipboard.writeText(address);
+        navigator.clipboard.writeText(address || '');
         setIsClicked(true);
       }}
     >

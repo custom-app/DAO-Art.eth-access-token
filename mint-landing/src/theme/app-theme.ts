@@ -7,15 +7,15 @@ const customFontDefaults = {
 export const appTheme = createTheme({
   palette: {
     mode: 'dark',
-    // primary: {
-    //   main: '#ffffff',
-    //   contrastText: '#000000',
-    // },
-    // secondary: {
-    //   // not supposed to be used, but just in case
-    //   main: '#0f62fe',
-    //   contrastText: '#ffffff',
-    // }
+    primary: {
+      main: '#ffffff',
+      contrastText: '#000000',
+    },
+    secondary: {
+      // not supposed to be used, but just in case
+      main: '#0f62fe',
+      contrastText: '#ffffff',
+    }
   },
   typography: {
     fontFamily: '"Source Code Pro", monospace',

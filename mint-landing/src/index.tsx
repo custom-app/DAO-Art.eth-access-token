@@ -15,18 +15,18 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AppThemeProvider>
-      {
-        APP_ID && SERVER_URL && (
-          <MoralisProvider
-            appId={APP_ID}
-            serverUrl={SERVER_URL}
-          >
+    {
+      APP_ID && SERVER_URL && (
+        <MoralisProvider
+          appId={APP_ID}
+          serverUrl={SERVER_URL}
+        >
+          <AppThemeProvider>
             <App/>
-          </MoralisProvider>
-        )
-      }
-    </AppThemeProvider>
+          </AppThemeProvider>
+        </MoralisProvider>
+      )
+    }
   </React.StrictMode>
 );
 

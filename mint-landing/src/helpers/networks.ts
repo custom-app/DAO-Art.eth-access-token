@@ -1,3 +1,5 @@
+import Moralis from 'moralis';
+
 export const networkConfigs = {
   "0x1": {
     currencySymbol: "ETH",
@@ -70,7 +72,11 @@ export const networkConfigs = {
   },
 };
 
-type ChainIdHex = keyof typeof networkConfigs;
+export const MetamaskDefaultChains: ChainIdHex[] = ['0x1', '0x3', '0x4', '0x2a', '0x5']
+
+export type ChainIdHex = keyof typeof networkConfigs;
+
+export const defaultChainId: ChainIdHex = '0x1';
 
 export const getNativeByChain = (chain: ChainIdHex) =>
   networkConfigs[chain]?.currencySymbol || "NATIVE";
@@ -81,3 +87,45 @@ export const getExplorer = (chain: ChainIdHex) => (networkConfigs[chain] as any)
 
 export const getWrappedNative = (chain: ChainIdHex) =>
   (networkConfigs[chain] as any)?.wrapped || null;
+
+export async function changeNetwork(provider: Moralis.MoralisWeb3Provider, chainId: ChainIdHex): Promise<any> {
+  return provider.send(
+    'wallet_switchEthereumChain',
+    [{chainId}]
+  )
+}
+
+interface AddEthereumChainParameter {
+  chainId: string; // A 0x-prefixed hexadecimal string
+  chainName: string;
+  nativeCurrency: {
+    name: string;
+    symbol: string; // 2-6 characters long
+    decimals: 18;
+  };
+  rpcUrls: string[];
+  blockExplorerUrls?: string[];
+  iconUrls?: string[]; // Currently ignored.
+}
+
+export function addNetworkByChainId(provider: Moralis.MoralisWeb3Provider, chainId: ChainIdHex): any {
+  const config = networkConfigs[chainId] as any; // sorry, no time for proper types
+  return addNetwork(provider, {
+    chainId,
+    chainName: config.chainName,
+    nativeCurrency: {
+      name: config.currencyName,
+      symbol: config.currencySymbol || config.currencyName,
+      decimals: 18,
+    },
+    rpcUrls: [config.rpcUrl],
+    blockExplorerUrls: [config.blockExplorerUrl],
+  })
+}
+
+export function addNetwork(provider: Moralis.MoralisWeb3Provider, param: AddEthereumChainParameter): Promise<any> {
+  return provider.send(
+    'wallet_addEthereumChain',
+    [param]
+  )
+}

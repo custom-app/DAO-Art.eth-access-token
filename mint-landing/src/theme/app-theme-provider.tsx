@@ -7,6 +7,6 @@ export default function AppThemeProvider({children}: PropsWithChildren<{}>): JSX
     <ThemeProvider theme={appTheme}>
       <CssBaseline/>
       {children}
-      </ThemeProvider>
+    </ThemeProvider>
   )
 }
