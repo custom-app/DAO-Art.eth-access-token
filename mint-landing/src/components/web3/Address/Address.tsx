@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {useState} from "react";
-import {getEllipsisTxt} from "../../helpers/formatters";
+import {getEllipsisTxt} from "../../../helpers/formatters";
 import Blockie from "../Blockie";
 import "./identicon.css";
 import {useMoralis} from "react-moralis";
@@ -10,9 +10,7 @@ const styles = {
   address: {
     height: "36px",
     display: "flex",
-    gap: "5px",
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    borderRadius: "9px",
+    gap: "8px",
     alignItems: "center",
   },
 };

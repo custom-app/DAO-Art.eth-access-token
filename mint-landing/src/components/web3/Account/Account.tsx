@@ -1,5 +1,5 @@
 import {useMoralis} from "react-moralis";
-import {getEllipsisTxt} from "../../helpers/formatters";
+import {getEllipsisTxt} from "../../../helpers/formatters";
 import Blockie from "../Blockie";
 import {Box, Button, Card, Dialog, DialogContent, Typography} from "@mui/material";
 import {useCallback, useState} from "react";
@@ -9,10 +9,11 @@ import {
   ChainIdHex, changeAndAddNetwork,
   defaultChainId,
   getExplorer,
-} from "../../helpers/networks";
+} from "../../../helpers/networks";
 import {connectors} from "./config";
-import {FullDialogTitle} from '../dialog/full-dialog-title';
+import {FullDialogTitle} from '../../dialog/full-dialog-title';
 import Moralis from 'moralis';
+import {useAuthModalContext} from './auth-modal-context';
 
 const styles = {
   account: {},
@@ -21,17 +22,8 @@ const styles = {
   },
 };
 
-export interface AccountProps {
-  isAuthModalVisible: boolean,
-  setIsAuthModalVisible: (v: boolean) => void,
-}
-
-function Account(
-  {
-    isAuthModalVisible,
-    setIsAuthModalVisible
-  }: AccountProps
-) {
+function Account() {
+  const {isAuthModalVisible, setIsAuthModalVisible} = useAuthModalContext()
   const {authenticate, isAuthenticated, account, chainId, logout} =
     useMoralis();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -47,9 +39,13 @@ function Account(
   if (!isAuthenticated || !account) {
     return (
       <>
-        <div onClick={() => setIsAuthModalVisible(true)}>
-          <p style={styles.text}>Authenticate</p>
-        </div>
+        <Button
+          type="button"
+          variant="outlined"
+          onClick={() => setIsAuthModalVisible(true)}
+        >
+          Authenticate
+        </Button>
         <Dialog
           open={isAuthModalVisible}
           onClose={onAuthClose}

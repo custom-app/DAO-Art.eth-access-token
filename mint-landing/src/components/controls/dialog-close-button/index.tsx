@@ -15,7 +15,7 @@ export default function DialogCloseButton({onClick, sx, buttonRight = 16}: Dialo
       sx={{
         position: 'absolute',
         right: buttonRight,
-        top: 24,
+        top: 20,
         ...sx,
       }}
     />
