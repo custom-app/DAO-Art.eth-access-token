@@ -1,22 +1,32 @@
-import {Box, Button} from '@mui/material';
-import {useAuthModalContext} from '../../components/web3/Account/auth-modal-context';
+import {Box} from '@mui/material';
+import TripleText from './triple-text';
+import MintButton from '../../components/web3/mint-button';
+import Headline from './headline';
 
 export default function MainPage(): JSX.Element {
-  const {setIsAuthModalVisible} = useAuthModalContext()
   return (
     <Box
       sx={{
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        height: '100%',
       }}
     >
-      <Button
-        type="button"
-        onClick={() => setIsAuthModalVisible(true)}
+      <Box
+        sx={{marginBottom: 10}}
       >
-        Auth
-      </Button>
+        <Headline/>
+      </Box>
+      <TripleText/>
+      <Box
+        sx={{
+          marginTop: 8,
+        }}
+      >
+        <MintButton/>
+      </Box>
     </Box>
   )
 }

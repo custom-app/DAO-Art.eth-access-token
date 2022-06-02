@@ -8,13 +8,17 @@ export default function MainLayout({children}: MainLayoutProps): JSX.Element {
   return (
     <Container
       maxWidth="lg"
+      sx={{
+        height: '100%',
+      }}
     >
       <Box
         sx={{
           display: 'grid',
-          gridTemplateRows: 'auto minmax(0, 1f)',
+          gridTemplateRows: 'auto minmax(0, 1fr)',
           gridTemplateColumns: 'minmax(0, 1fr)',
           gap: 2,
+          height: '100%',
         }}
       >
         <Box
@@ -27,7 +31,12 @@ export default function MainLayout({children}: MainLayoutProps): JSX.Element {
         >
           <Account/>
         </Box>
-        <Box>
+        <Box
+          sx={{
+            height: '100%',
+            overflowY: 'auto',
+          }}
+        >
           {children}
         </Box>
       </Box>
