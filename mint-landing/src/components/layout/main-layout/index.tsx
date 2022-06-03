@@ -17,7 +17,6 @@ export default function MainLayout({children}: MainLayoutProps): JSX.Element {
           display: 'grid',
           gridTemplateRows: 'auto minmax(0, 1fr)',
           gridTemplateColumns: 'minmax(0, 1fr)',
-          gap: 2,
           height: '100%',
         }}
       >

@@ -5,7 +5,15 @@ export default function Headline(): JSX.Element {
     <LargeAndSmall
       large={'DAO-Art.eth'}
       small={'Genesis Membership'}
-      typographyL={'h1'} typographyS={'h3'}
+      typographyL={{
+        xs: 'h3',
+        md: 'h1',
+      }}
+      typographyS={{
+        xs: 'h5',
+        md: 'h3',
+      }}
+      className="animate-headline"
     />
   )
 }

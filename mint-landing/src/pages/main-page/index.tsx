@@ -11,18 +11,28 @@ export default function MainPage(): JSX.Element {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',
+        minHeight: '100%',
+        paddingTop: 4,
+        paddingBottom: 4,
       }}
     >
       <Box
-        sx={{marginBottom: 10}}
+        sx={{
+          marginBottom: {
+            xs: 5,
+            md: 10,
+          }
+        }}
       >
         <Headline/>
       </Box>
       <TripleText/>
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: {
+            xs: 4,
+            md: 8,
+          },
         }}
       >
         <MintButton/>

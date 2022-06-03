@@ -1,19 +1,31 @@
-import {Box} from '@mui/material';
+import {Box, Breakpoint} from '@mui/material';
 import {ReactNode} from 'react';
+
+type TypographyProp = string | Partial<Record<Breakpoint, string>>
 
 export interface LargeAndSmallProps {
   large: ReactNode,
   small: ReactNode,
-  typographyL?: string,
-  typographyS?: string,
+  typographyL?: TypographyProp,
+  typographyS?: TypographyProp,
+  opacity?: number,
+  className?: string,
 }
 
 export default function LargeAndSmall(
   {
     large,
     small,
-    typographyL = 'h2',
-    typographyS = 'h6',
+    typographyL = {
+      xs: 'h4',
+      md: 'h2',
+    },
+    typographyS = {
+      xs: 'body1',
+      md: 'h6',
+    },
+    opacity,
+    className,
   }: LargeAndSmallProps
 ): JSX.Element {
   return (
@@ -24,6 +36,7 @@ export default function LargeAndSmall(
         flexWrap: 'nowrap',
         justifyContent: 'center',
         alignItems: 'center',
+        opacity,
       }}
     >
       <Box
@@ -31,6 +44,7 @@ export default function LargeAndSmall(
           typography: typographyL,
           marginBottom: 1,
         }}
+        className={className}
       >
         {large}
       </Box>

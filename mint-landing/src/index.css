@@ -62,3 +62,30 @@ select {
 #root {
   height: 100%;
 }
+
+.animate-headline {
+  border-right: solid 3px rgba(255, 255, 255,.75);
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: 'Source Code Pro', monospace;
+}
+
+/* Animation */
+.animate-headline {
+  animation: animated-text 2s steps(11,end) 1s 1 normal both,
+  animated-cursor 1200ms steps(11,end) infinite;
+}
+
+/* text animation */
+
+@keyframes animated-text{
+  from{width: 0;}
+  to{width: 100%;}
+}
+
+/* cursor animations */
+
+@keyframes animated-cursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+}

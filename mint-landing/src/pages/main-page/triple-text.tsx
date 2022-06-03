@@ -8,8 +8,14 @@ function Line({children}: PropsWithChildren<{}>): JSX.Element {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        gap: 8,
-        marginBottom: 3,
+        gap: {
+          xs: 4,
+          md: 8,
+        },
+        marginBottom: {
+          xs: 2,
+          md: 3,
+        },
       }}
     >
       {children}
