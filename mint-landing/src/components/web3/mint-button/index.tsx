@@ -8,7 +8,7 @@ export default function MintButton(): JSX.Element {
   return (
     <Button
       type="button"
-      variant="outlined"
+      variant="contained"
       sx={{
         height,
         paddingLeft: pad,

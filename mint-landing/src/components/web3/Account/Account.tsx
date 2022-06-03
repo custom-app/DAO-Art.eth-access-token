@@ -15,13 +15,6 @@ import {FullDialogTitle} from '../../dialog/full-dialog-title';
 import Moralis from 'moralis';
 import {useAuthModalContext} from './auth-modal-context';
 
-const styles = {
-  account: {},
-  text: {
-    color: "#21BF96",
-  },
-};
-
 function Account() {
   const {isAuthModalVisible, setIsAuthModalVisible} = useAuthModalContext()
   const {authenticate, isAuthenticated, account, chainId, logout} =
@@ -149,25 +142,21 @@ function Account() {
       >
         Hi
       </button> */}
-      <Box
+      <Button
+        type="button"
         sx={{
           height: "42px",
-          padding: "0 15px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "fit-content",
-          borderRadius: "12px",
-          backgroundColor: "rgb(244, 244, 244)",
-          cursor: "pointer",
+          paddingLeft: 2,
+          paddingRight: 2,
         }}
+        variant="outlined"
         onClick={() => setIsModalVisible(true)}
       >
-        <p style={{marginRight: "5px", ...styles.text}}>
+        <Box component="p" sx={{marginRight: 1}}>
           {getEllipsisTxt(account, 6)}
-        </p>
+        </Box>
         <Blockie currentWallet scale={3}/>
-      </Box>
+      </Button>
       <Dialog
         open={isModalVisible}
         onClose={onAccountClose}
