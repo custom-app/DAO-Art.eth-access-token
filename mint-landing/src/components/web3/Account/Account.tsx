@@ -14,12 +14,18 @@ import {connectors} from "./config";
 import {FullDialogTitle} from '../../dialog/full-dialog-title';
 import Moralis from 'moralis';
 import {useAuthModalContext} from './auth-modal-context';
+import ErrorDisplay from '../../data-display/error-display';
+
+const noEthereumProviderError = 'Error: Non ethereum enabled browser'
+const userClosedModalError = 'Error: User closed modal'
+const notFinishedError = 'Error: Cannot execute Moralis.enableWeb3(), as Moralis Moralis.enableWeb3() already has been called, but is not finished yet'
 
 function Account() {
   const {isAuthModalVisible, setIsAuthModalVisible} = useAuthModalContext()
-  const {authenticate, isAuthenticated, account, chainId, logout} =
+  const {account, chainId, logout} =
     useMoralis();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [error, setError] = useState('');
   const onAuthClose = useCallback(
     () => setIsAuthModalVisible(false),
     [setIsAuthModalVisible]
@@ -28,8 +34,7 @@ function Account() {
     () => setIsModalVisible(false),
     [setIsModalVisible]
   )
-
-  if (!isAuthenticated || !account) {
+  if (!account) {
     return (
       <>
         <Button
@@ -37,7 +42,7 @@ function Account() {
           variant="outlined"
           onClick={() => setIsAuthModalVisible(true)}
         >
-          Authenticate
+          Connect wallet
         </Button>
         <Dialog
           open={isAuthModalVisible}
@@ -83,18 +88,27 @@ function Account() {
                   key={key}
                   onClick={async () => {
                     try {
+                      setError('');
                       const chainId = Number.parseInt(defaultChainId, 16);
                       console.log('chainId', chainId);
-                      await authenticate({
+                      const web3Provider = await Moralis.enableWeb3({
                         provider: (connectorId as Moralis.Web3ProviderType),
-                        anyNetwork: false,
-                      });
+                      })
+                      console.log(await web3Provider.listAccounts());
                       window.localStorage.setItem("connectorId", connectorId);
                       setIsAuthModalVisible(false);
-                      const web3Provider = await Moralis.enableWeb3();
                       await changeAndAddNetwork(web3Provider, defaultChainId)
-                    } catch (e) {
-                      console.error(e);
+                    } catch (e: any) {
+                      const s = e + '';
+                      if (s === noEthereumProviderError) {
+                        setError('Please, install MetaMask or another wallet');
+                      } else if (s === notFinishedError || e?.code === -32002) {
+                        setError('Please, open the wallet');
+                      } else if (s === userClosedModalError) {
+                        console.error(e);
+                      } else {
+                        setError(e + '')
+                      }
                     }
                   }}
                 >
@@ -118,6 +132,9 @@ function Account() {
                 </Box>
               ))}
             </Box>
+            <ErrorDisplay
+              error={error}
+            />
           </DialogContent>
         </Dialog>
       </>
@@ -155,7 +172,7 @@ function Account() {
         <Box component="p" sx={{marginRight: 1}}>
           {getEllipsisTxt(account, 6)}
         </Box>
-        <Blockie currentWallet scale={3}/>
+        <Blockie address={account} scale={3}/>
       </Button>
       <Dialog
         open={isModalVisible}
@@ -178,6 +195,7 @@ function Account() {
           >
             <Address
               avatar="left"
+              address={account}
               size={6}
               copyable
               style={{fontSize: "20px"}}

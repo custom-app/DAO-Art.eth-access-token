@@ -1,6 +1,7 @@
 import {PropsWithChildren} from 'react';
 import {Box, Container} from '@mui/material';
 import Account from '../../web3/Account/Account';
+import Web3ConnectionMessage from '../../web3/web3-connection-message';
 
 export type MainLayoutProps = PropsWithChildren<{}>;
 
@@ -26,8 +27,10 @@ export default function MainLayout({children}: MainLayoutProps): JSX.Element {
             paddingBottom: 2,
             display: 'flex',
             justifyContent: 'end',
+            gap: 1,
           }}
         >
+          <Web3ConnectionMessage/>
           <Account/>
         </Box>
         <Box

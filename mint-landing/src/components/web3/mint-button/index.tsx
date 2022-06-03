@@ -1,10 +1,19 @@
 import {Button} from '@mui/material';
+import {useAuthModalContext} from '../Account/auth-modal-context';
+import {useMoralis} from 'react-moralis';
+import {useCallback} from 'react';
+import {defaultChainId} from '../../../helpers/networks';
 
 const height = 70
 const pad = 6
 const fontSize = '1.2rem'
 
 export default function MintButton(): JSX.Element {
+  const {setIsAuthModalVisible} = useAuthModalContext()
+  const {account, chainId} = useMoralis()
+  const mint = useCallback(() => {
+    console.log('mint', account)
+  }, [account])
   return (
     <Button
       type="button"
@@ -34,8 +43,14 @@ export default function MintButton(): JSX.Element {
           border: 2,
         }
       }}
+      onClick={() => account ? mint() : setIsAuthModalVisible(true)}
+      disabled={Boolean(account && chainId !== defaultChainId)}
     >
-      Mint NFT
+      {
+        account
+          ? (<span>Mint NFT</span>)
+          : (<span>Connect wallet</span>)
+      }
     </Button>
   )
 }

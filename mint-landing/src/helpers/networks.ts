@@ -3,23 +3,28 @@ import Moralis from 'moralis';
 export const networkConfigs = {
   "0x1": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum',
     blockExplorerUrl: "https://etherscan.io/",
     wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   },
   "0x3": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum Ropsten',
     blockExplorerUrl: "https://ropsten.etherscan.io/",
   },
   "0x4": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum Rinkeby',
     blockExplorerUrl: "https://rinkeby.etherscan.io/",
   },
   "0x2a": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum Kovan',
     blockExplorerUrl: "https://kovan.etherscan.io/",
   },
   "0x5": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum Goerli',
     blockExplorerUrl: "https://goerli.etherscan.io/",
   },
   "0x539": {
