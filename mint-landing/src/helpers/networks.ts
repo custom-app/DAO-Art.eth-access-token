@@ -69,10 +69,10 @@ export const networkConfigs = {
   },
   "0x13881": {
     chainId: 80001,
-    chainName: "Mumbai",
+    chainName: "Polygon Mumbai",
     currencyName: "MATIC",
     currencySymbol: "MATIC",
-    rpcUrl: "https://rpc-mumbai.matic.today/",
+    rpcUrl: "https://matic-mumbai.chainstacklabs.com",
     blockExplorerUrl: "https://mumbai.polygonscan.com/",
   },
 };
@@ -81,7 +81,8 @@ export const MetamaskDefaultChains: ChainIdHex[] = ['0x1', '0x3', '0x4', '0x2a',
 
 export type ChainIdHex = keyof typeof networkConfigs;
 
-export const defaultChainId: ChainIdHex = '0x1';
+export const defaultChainId: ChainIdHex = '0x13881';
+export const defaultConfig = networkConfigs[defaultChainId]
 
 export const getNativeByChain = (chain: ChainIdHex) =>
   networkConfigs[chain]?.currencySymbol || "NATIVE";

@@ -11,6 +11,9 @@
 # production
 /build
 
+#generated
+/src/contracts
+
 # misc
 .DS_Store
 .env.local

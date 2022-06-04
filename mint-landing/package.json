@@ -37,7 +37,8 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "cross-env GENERATE_SOURCEMAP=false REACT_APP_MORALIS_APPLICATION_ID=QRaZ5yyiTIsssClvStKns8OwJccPwh6wIY9wqgQj REACT_APP_MORALIS_SERVER_URL=https://ijk1sqjjfodb.usemoralis.com:2053/server react-app-rewired start",
+    "prepare": "cd ../ && npm install && truffle compile && cp -r build/contracts mint-landing/src/contracts",
+    "start": "cross-env GENERATE_SOURCEMAP=false REACT_APP_MORALIS_APPLICATION_ID=QRaZ5yyiTIsssClvStKns8OwJccPwh6wIY9wqgQj REACT_APP_MORALIS_SERVER_URL=https://ijk1sqjjfodb.usemoralis.com:2053/server REACT_APP_CONTRACT=0xEbC0562dAa18F45E569bFB0b586fC56F3Ffac069 react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
