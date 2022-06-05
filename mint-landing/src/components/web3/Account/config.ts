@@ -50,3 +50,7 @@ export const connectors = [
     priority: 999,
   },
 ];
+
+export function supportsNetworkChange(connectorId: string): boolean {
+  return connectorId === 'injected'
+}
