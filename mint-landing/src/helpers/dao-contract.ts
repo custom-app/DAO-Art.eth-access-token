@@ -3,7 +3,7 @@ import Moralis from 'moralis';
 import {Transaction, Contract, BigNumber} from 'ethers'
 import daoAbi from '../contracts/DaoArtAccessToken.json';
 
-const contractAddr = process.env.REACT_APP_CONTRACT
+export const daoContractAddress = process.env.REACT_APP_CONTRACT
 
 export interface MintResultSuccess {
   success: true,
@@ -18,14 +18,14 @@ export interface MintResultError {
 export type MintResult = MintResultSuccess | MintResultError
 
 export async function callContractMint(provider: Moralis.MoralisWeb3Provider, metaUri: string): Promise<MintResult> {
-  if (!contractAddr) {
+  if (!daoContractAddress) {
     return {
       success: false,
       error: 'No contract address. Message the support'
     }
   }
   try {
-    const contract = new Contract(contractAddr, daoAbi.abi, provider.getSigner())
+    const contract = new Contract(daoContractAddress, daoAbi.abi, provider.getSigner())
     const data = await contract.getTokenParams()
     const {currentSupply, currentPrice} = calcTokenParams(data)
     const tx: Transaction = await contract.buyToken(

@@ -5,7 +5,7 @@ import {useApiContract} from 'react-moralis';
 import daoAbi from '../../contracts/DaoArtAccessToken.json';
 import {defaultChainId} from '../../helpers/networks';
 import CurrencyEth from '../../components/data-display/currency-eth';
-import {calcTokenParams} from '../../helpers/dao-contract';
+import {calcTokenParams, daoContractAddress} from '../../helpers/dao-contract';
 
 function Line({children}: PropsWithChildren<{}>): JSX.Element {
   return (
@@ -28,13 +28,10 @@ function Line({children}: PropsWithChildren<{}>): JSX.Element {
   )
 }
 
-const contract = process.env.REACT_APP_CONTRACT
-
 export default function TripleText(): JSX.Element | null {
-  console.log('address', contract);
   const {runContractFunction, data} = useApiContract({
     functionName: 'getTokenParams',
-    address: contract,
+    address: daoContractAddress,
     abi: daoAbi.abi,
     chain: defaultChainId as any,
   })
