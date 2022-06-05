@@ -6,7 +6,7 @@ import {defaultChainId} from '../../../helpers/networks';
 import {mint, MintResult} from '../../../helpers/dao-contract';
 import MintResultDialog from '../mint-result-dialog';
 
-const height = 70
+export const height = 70
 const pad = 6
 const fontSize = '1.2rem'
 
@@ -17,7 +17,6 @@ export default function MintButton(): JSX.Element {
   const [mintResult, setMintResult] = useState<MintResult>()
   const onMint = useCallback(async () => {
     if (web3) {
-      console.log('mint')
       try {
         setResultDialogOpen(true)
         if (!mintResult?.success) {

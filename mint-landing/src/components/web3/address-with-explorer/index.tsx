@@ -1,7 +1,7 @@
 import Address from '../Address/Address';
 import {ChainIdHex, getExplorer} from '../../../helpers/networks';
-import {SelectOutlined} from '@ant-design/icons';
 import {useMoralis} from 'react-moralis';
+import {OpenInNew} from '@mui/icons-material';
 
 export interface AddressWithExplorerProps {
   address: string,
@@ -26,7 +26,7 @@ export default function AddressWithExplorer({address, isTx, avatar}: AddressWith
           target="_blank"
           rel="noreferrer"
         >
-          <SelectOutlined style={{marginRight: "5px"}}/>
+          <OpenInNew sx={{marginRight: 1}}/>
           View on Explorer
         </a>
       </div>

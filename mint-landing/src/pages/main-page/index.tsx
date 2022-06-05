@@ -1,7 +1,7 @@
 import {Box} from '@mui/material';
 import TripleText from './triple-text';
-import MintButton from '../../components/web3/mint-button';
 import Headline from './headline';
+import NftBalance from '../../components/web3/nft-balance';
 
 export default function MainPage(): JSX.Element {
   return (
@@ -19,8 +19,8 @@ export default function MainPage(): JSX.Element {
       <Box
         sx={{
           marginBottom: {
-            xs: 5,
-            md: 10,
+            xs: 4,
+            md: 8,
           }
         }}
       >
@@ -30,12 +30,12 @@ export default function MainPage(): JSX.Element {
       <Box
         sx={{
           marginTop: {
-            xs: 4,
-            md: 8,
+            xs: 3,
+            md: 6,
           },
         }}
       >
-        <MintButton/>
+        <NftBalance/>
       </Box>
     </Box>
   )
