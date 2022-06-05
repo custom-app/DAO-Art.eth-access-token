@@ -37,6 +37,10 @@ export default function MainLayout({children}: MainLayoutProps): JSX.Element {
           sx={{
             height: '100%',
             overflowY: 'auto',
+            '&::-webkit-scrollbar': {
+              display: 'none'
+            },
+            scrollbarWidth: 'none',
           }}
         >
           {children}
