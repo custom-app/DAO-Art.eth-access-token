@@ -12,6 +12,7 @@ export default function ErrorDisplay({error, noMargin}: ErrorDisplayProps): JSX.
       <Alert
         sx={{
           marginTop: noMargin ? 0 : 2,
+          overflowWrap: 'anywhere',
         }}
         severity="error"
       >

@@ -3,18 +3,16 @@ import {getEllipsisTxt} from "../../../helpers/formatters";
 import Blockie from "../Blockie";
 import {Box, Button, Card, Dialog, DialogContent, Typography} from "@mui/material";
 import {useCallback, useState} from "react";
-import Address from "../Address/Address";
-import {SelectOutlined} from "@ant-design/icons";
 import {
-  ChainIdHex, changeAndAddNetwork,
+  changeAndAddNetwork,
   defaultChainId,
-  getExplorer,
 } from "../../../helpers/networks";
 import {connectors} from "./config";
 import {FullDialogTitle} from '../../dialog/full-dialog-title';
 import Moralis from 'moralis';
 import {useAuthModalContext} from './auth-modal-context';
 import ErrorDisplay from '../../data-display/error-display';
+import AddressWithExplorer from '../address-with-explorer';
 
 const noEthereumProviderError = 'Error: Non ethereum enabled browser'
 const userClosedModalError = 'Error: User closed modal'
@@ -22,7 +20,7 @@ const notFinishedError = 'Error: Cannot execute Moralis.enableWeb3(), as Moralis
 
 function Account() {
   const {isAuthModalVisible, setIsAuthModalVisible} = useAuthModalContext()
-  const {account, chainId, logout} =
+  const {account, logout} =
     useMoralis();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [error, setError] = useState('');
@@ -91,10 +89,13 @@ function Account() {
                       setError('');
                       const chainId = Number.parseInt(defaultChainId, 16);
                       console.log('chainId', chainId);
+                      const provider = (connectorId as Moralis.Web3ProviderType);
+                      await Moralis.authenticate({
+                        provider,
+                      });
                       const web3Provider = await Moralis.enableWeb3({
-                        provider: (connectorId as Moralis.Web3ProviderType),
+                        provider,
                       })
-                      console.log(await web3Provider.listAccounts());
                       window.localStorage.setItem("connectorId", connectorId);
                       setIsAuthModalVisible(false);
                       await changeAndAddNetwork(web3Provider, defaultChainId)
@@ -193,23 +194,10 @@ function Account() {
               padding: 2,
             }}
           >
-            <Address
+            <AddressWithExplorer
               avatar="left"
               address={account}
-              size={6}
-              copyable
-              style={{fontSize: "20px"}}
             />
-            <div style={{marginTop: "10px", padding: "0 10px"}}>
-              <a
-                href={`${getExplorer(chainId as ChainIdHex)}/address/${account}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <SelectOutlined style={{marginRight: "5px"}}/>
-                View on Explorer
-              </a>
-            </div>
           </Card>
           <Button
             sx={{
