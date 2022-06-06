@@ -29,7 +29,7 @@ export default function MintButton(): JSX.Element {
         console.error(e);
       }
     }
-  }, [account, web3, mintResult, setResultDialogOpen, setMintResult])
+  }, [web3, mintResult, setResultDialogOpen, setMintResult])
   return (
     <>
       <Button

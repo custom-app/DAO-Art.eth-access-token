@@ -81,7 +81,7 @@ export const MetamaskDefaultChains: ChainIdHex[] = ['0x1', '0x3', '0x4', '0x2a',
 
 export type ChainIdHex = keyof typeof networkConfigs;
 
-export const defaultChainId: ChainIdHex = '0x13881';
+export const defaultChainId: ChainIdHex = process.env.REACT_APP_CHAIN_ID as ChainIdHex;
 export const defaultConfig = networkConfigs[defaultChainId]
 
 export const getNativeByChain = (chain: ChainIdHex) =>
