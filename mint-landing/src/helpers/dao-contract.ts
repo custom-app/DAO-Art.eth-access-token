@@ -1,4 +1,4 @@
-import metadata from './token-metadata.json'
+import metadata from './token-metadata-front.json'
 import Moralis from 'moralis';
 import {Transaction, Contract, BigNumber} from 'ethers'
 import daoAbi from '../contracts/DaoArtAccessToken.json';
@@ -17,7 +17,19 @@ export interface MintResultError {
 
 export type MintResult = MintResultSuccess | MintResultError
 
-export async function callContractMint(provider: Moralis.MoralisWeb3Provider, metaUri: string): Promise<MintResult> {
+type Metadata = typeof metadata
+
+function prepareMetadata(metadataJson: Metadata, currentSupply: BigNumber): Metadata {
+  currentSupply.toNumber().toString().padStart(3, '0')
+  return {
+    ...metadataJson,
+    name: `${metadataJson.name} #${currentSupply.toNumber().toString().padStart(3, '0')}`
+  }
+}
+
+
+export async function mint(provider: Moralis.MoralisWeb3Provider): Promise<MintResult> {
+
   if (!daoContractAddress) {
     return {
       success: false,
@@ -28,6 +40,12 @@ export async function callContractMint(provider: Moralis.MoralisWeb3Provider, me
     const contract = new Contract(daoContractAddress, daoAbi.abi, provider.getSigner())
     const data = await contract.getTokenParams()
     const {currentSupply, currentPrice} = calcTokenParams(data)
+    const metadataFile = new Moralis.File('metadata.json', {
+      base64: btoa(JSON.stringify(prepareMetadata(metadata, currentSupply)))
+    })
+    const res = await metadataFile.saveIPFS({ipfs: true})
+    const hash = (res as any).hash()
+    const metaUri = `ipfs://${hash}` // res.ipfs() returns gateway url, not the ipfs uri
     const tx: Transaction = await contract.buyToken(
       currentSupply,
       metaUri,
@@ -43,17 +61,6 @@ export async function callContractMint(provider: Moralis.MoralisWeb3Provider, me
       error,
     }
   }
-}
-
-
-export async function mint(provider: Moralis.MoralisWeb3Provider): Promise<MintResult> {
-  const metadataFile = new Moralis.File('metadata.json', {
-    base64: btoa(JSON.stringify(metadata))
-  })
-  const res = await metadataFile.saveIPFS({ipfs: true})
-  const hash = (res as any).hash()
-  const metaUri = `ipfs://${hash}` // res.ipfs() returns gateway url, not the ipfs uri
-  return callContractMint(provider, metaUri);
 }
 
 export function calcTokenParams(getParamsMethodCallResult: any) {

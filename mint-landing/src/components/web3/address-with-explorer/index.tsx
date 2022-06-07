@@ -2,6 +2,7 @@ import Address from '../Address/Address';
 import {ChainIdHex, getExplorer} from '../../../helpers/networks';
 import {useMoralis} from 'react-moralis';
 import {OpenInNew} from '@mui/icons-material';
+import {Box, Link} from '@mui/material';
 
 export interface AddressWithExplorerProps {
   address: string,
@@ -21,14 +22,20 @@ export default function AddressWithExplorer({address, isTx, avatar}: AddressWith
         style={{fontSize: "20px"}}
       />
       <div style={{marginTop: "10px", padding: "0 10px"}}>
-        <a
+        <Link
           href={`${getExplorer(chainId as ChainIdHex)}${isTx ? 'tx' : 'address'}/${address}`}
           target="_blank"
           rel="noreferrer"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
         >
           <OpenInNew sx={{marginRight: 1}}/>
-          View on Explorer
-        </a>
+          <Box component="span">
+            View on Explorer
+          </Box>
+        </Link>
       </div>
     </>
   )
