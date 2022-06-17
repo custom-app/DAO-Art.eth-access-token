@@ -126,10 +126,8 @@ contract DaoArtAccessToken is AccessControl, Ownable, ERC721Enumerable {
     function supportsInterface(
         bytes4 interfaceId
     ) public view virtual override(ERC721Enumerable, AccessControl) returns (bool) {
-        return interfaceId == type(IERC721Enumerable).interfaceId ||
-        super.supportsInterface(interfaceId) ||
-        interfaceId == type(IAccessControl).interfaceId ||
-        super.supportsInterface(interfaceId);
+        return ERC721Enumerable.supportsInterface(interfaceId) ||
+        AccessControl.supportsInterface(interfaceId);
     }
 
     /**
@@ -144,6 +142,40 @@ contract DaoArtAccessToken is AccessControl, Ownable, ERC721Enumerable {
     */
     function contractURI() public view returns (string memory) {
         return contractUri;
+    }
+
+    /**
+     * @dev See {IERC721-transferFrom}.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override {
+        revert("DaoArtToken: transfer not allowed");
+    }
+
+    /**
+     * @dev See {IERC721-safeTransferFrom}.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override {
+        revert("DaoArtToken: transfer not allowed");
+    }
+
+    /**
+     * @dev See {IERC721-safeTransferFrom}.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) public virtual override {
+        revert("DaoArtToken: transfer not allowed");
     }
 
     /*
