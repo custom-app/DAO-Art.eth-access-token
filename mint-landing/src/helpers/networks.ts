@@ -1,23 +1,30 @@
+import Moralis from 'moralis';
+
 export const networkConfigs = {
   "0x1": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum',
     blockExplorerUrl: "https://etherscan.io/",
     wrapped: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   },
   "0x3": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum Ropsten',
     blockExplorerUrl: "https://ropsten.etherscan.io/",
   },
   "0x4": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum Rinkeby',
     blockExplorerUrl: "https://rinkeby.etherscan.io/",
   },
   "0x2a": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum Kovan',
     blockExplorerUrl: "https://kovan.etherscan.io/",
   },
   "0x5": {
     currencySymbol: "ETH",
+    chainName: 'Ethereum Goerli',
     blockExplorerUrl: "https://goerli.etherscan.io/",
   },
   "0x539": {
@@ -62,15 +69,20 @@ export const networkConfigs = {
   },
   "0x13881": {
     chainId: 80001,
-    chainName: "Mumbai",
+    chainName: "Polygon Mumbai",
     currencyName: "MATIC",
     currencySymbol: "MATIC",
-    rpcUrl: "https://rpc-mumbai.matic.today/",
+    rpcUrl: "https://matic-mumbai.chainstacklabs.com",
     blockExplorerUrl: "https://mumbai.polygonscan.com/",
   },
 };
 
-type ChainIdHex = keyof typeof networkConfigs;
+export const MetamaskDefaultChains: ChainIdHex[] = ['0x1', '0x3', '0x4', '0x2a', '0x5']
+
+export type ChainIdHex = keyof typeof networkConfigs;
+
+export const defaultChainId: ChainIdHex = process.env.REACT_APP_CHAIN_ID as ChainIdHex;
+export const defaultConfig = networkConfigs[defaultChainId]
 
 export const getNativeByChain = (chain: ChainIdHex) =>
   networkConfigs[chain]?.currencySymbol || "NATIVE";
@@ -81,3 +93,57 @@ export const getExplorer = (chain: ChainIdHex) => (networkConfigs[chain] as any)
 
 export const getWrappedNative = (chain: ChainIdHex) =>
   (networkConfigs[chain] as any)?.wrapped || null;
+
+export async function changeNetwork(provider: Moralis.MoralisWeb3Provider, chainId: ChainIdHex): Promise<any> {
+  return provider.send(
+    'wallet_switchEthereumChain',
+    [{chainId}]
+  )
+}
+
+interface AddEthereumChainParameter {
+  chainId: string; // A 0x-prefixed hexadecimal string
+  chainName: string;
+  nativeCurrency: {
+    name: string;
+    symbol: string; // 2-6 characters long
+    decimals: 18;
+  };
+  rpcUrls: string[];
+  blockExplorerUrls?: string[];
+  iconUrls?: string[]; // Currently ignored.
+}
+
+export async function addNetworkByChainId(provider: Moralis.MoralisWeb3Provider, chainId: ChainIdHex): Promise<any> {
+  const config = networkConfigs[chainId] as any; // sorry, no time for proper types
+  return addNetwork(provider, {
+    chainId,
+    chainName: config.chainName,
+    nativeCurrency: {
+      name: config.currencyName,
+      symbol: config.currencySymbol || config.currencyName,
+      decimals: 18,
+    },
+    rpcUrls: [config.rpcUrl],
+    blockExplorerUrls: [config.blockExplorerUrl],
+  })
+}
+
+export function addNetwork(provider: Moralis.MoralisWeb3Provider, param: AddEthereumChainParameter): Promise<any> {
+  return provider.send(
+    'wallet_addEthereumChain',
+    [param]
+  )
+}
+
+export async function changeAndAddNetwork(provider: Moralis.MoralisWeb3Provider, chainId: ChainIdHex): Promise<any> {
+  try {
+    return await changeNetwork(provider, chainId)
+  } catch (e: any) {
+    if (e?.code === 4902) {
+      return await addNetworkByChainId(provider, chainId)
+    } else {
+      throw e
+    }
+  }
+}
