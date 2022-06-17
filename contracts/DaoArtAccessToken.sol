@@ -148,9 +148,9 @@ contract DaoArtAccessToken is AccessControl, Ownable, ERC721Enumerable {
      * @dev See {IERC721-transferFrom}.
      */
     function transferFrom(
-        address from,
-        address to,
-        uint256 tokenId
+        address,
+        address,
+        uint256
     ) public virtual override {
         revert("DaoArtToken: transfer not allowed");
     }
@@ -159,9 +159,9 @@ contract DaoArtAccessToken is AccessControl, Ownable, ERC721Enumerable {
      * @dev See {IERC721-safeTransferFrom}.
      */
     function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId
+        address,
+        address,
+        uint256
     ) public virtual override {
         revert("DaoArtToken: transfer not allowed");
     }
@@ -170,10 +170,10 @@ contract DaoArtAccessToken is AccessControl, Ownable, ERC721Enumerable {
      * @dev See {IERC721-safeTransferFrom}.
      */
     function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId,
-        bytes memory _data
+        address,
+        address,
+        uint256,
+        bytes memory
     ) public virtual override {
         revert("DaoArtToken: transfer not allowed");
     }
