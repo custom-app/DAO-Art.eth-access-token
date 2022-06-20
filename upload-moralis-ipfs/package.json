@@ -1,0 +1,12 @@
+{
+  "name": "upload_to_ipfs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.27.2",
+    "fs": "^0.0.1-security",
+    "moralis": "^1.8.0"
+  }
+}

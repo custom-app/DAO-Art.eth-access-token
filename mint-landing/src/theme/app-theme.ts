@@ -44,7 +44,7 @@ export const appTheme = createTheme({
     font-stretch: normal;
     src: 
       local('Source Code Pro'), 
-      url('./TTF/SourceCodePro-Medium.ttf') format('truetype');
+      url('${process.env.PUBLIC_URL}/fonts/SourceCodePro-Medium.ttf') format('truetype');
 }
       `
     }
