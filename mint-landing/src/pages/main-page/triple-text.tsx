@@ -31,7 +31,7 @@ function Line({children}: PropsWithChildren<{}>): JSX.Element {
 }
 
 export default function TripleText(): JSX.Element | null {
-  const {runContractFunction, data, error} = useApiContract({
+  const {runContractFunction, data, error, isLoading, isFetching} = useApiContract({
     functionName: 'getTokenParams',
     address: daoContractAddress,
     abi: daoAbi.abi,
@@ -42,6 +42,9 @@ export default function TripleText(): JSX.Element | null {
     runContractFunction().then() // then() to prevent warning
     // eslint-disable-next-line
   }, [])
+  useEffect(() => {
+    console.log('contract call', 'isFetching', isFetching, 'isLoading', isLoading)
+  }, [isFetching, isLoading])
   if (data) {
     const {currentPrice, nextStepPrice, currentSupply, totalSupply} = calcTokenParams(data)
     return (
