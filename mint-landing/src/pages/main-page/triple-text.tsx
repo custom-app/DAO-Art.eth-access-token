@@ -38,7 +38,7 @@ export default function TripleText(): JSX.Element | null {
     chain: defaultChainId as any,
   })
   useEffect(() => {
-    console.log('run getTokenParams contract function')
+    console.log('run getTokenParams contract function', 'contract', daoContractAddress, 'abi', daoAbi.abi, 'chain', defaultChainId)
     runContractFunction().then() // then() to prevent warning
     // eslint-disable-next-line
   }, [])
