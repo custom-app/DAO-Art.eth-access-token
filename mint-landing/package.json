@@ -36,7 +36,7 @@
   },
   "scripts": {
     "prepare": "cd ../ && npm install && truffle compile && cp -r build/contracts mint-landing/src/contracts",
-    "start": "cross-env GENERATE_SOURCEMAP=false REACT_APP_MORALIS_APPLICATION_ID=QRaZ5yyiTIsssClvStKns8OwJccPwh6wIY9wqgQj REACT_APP_MORALIS_SERVER_URL=https://ijk1sqjjfodb.usemoralis.com:2053/server REACT_APP_CONTRACT=0xEbC0562dAa18F45E569bFB0b586fC56F3Ffac069 REACT_APP_CHAIN_ID=0x13881 react-app-rewired start",
+    "start": "cross-env GENERATE_SOURCEMAP=false REACT_APP_MORALIS_APPLICATION_ID=qhiFopxemxXLKR0q1TGdIF9cJhfojkhjsLHfhNuH REACT_APP_MORALIS_SERVER_URL=https://yskrqry6xyd0.usemoralis.com:2053/server REACT_APP_CONTRACT=0x17B802c8edf6159eDC0E9e84039c4043083c512e REACT_APP_CHAIN_ID=0x1 react-app-rewired start",
     "build": "cross-env PUBLIC_URL=. GENERATE_SOURCEMAP=false REACT_APP_MORALIS_APPLICATION_ID=qhiFopxemxXLKR0q1TGdIF9cJhfojkhjsLHfhNuH REACT_APP_MORALIS_SERVER_URL=https://yskrqry6xyd0.usemoralis.com:2053/server REACT_APP_CONTRACT=0x17B802c8edf6159eDC0E9e84039c4043083c512e REACT_APP_CHAIN_ID=0x1 react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"

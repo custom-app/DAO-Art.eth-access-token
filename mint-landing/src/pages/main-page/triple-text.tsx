@@ -6,6 +6,8 @@ import daoAbi from '../../contracts/DaoArtAccessToken.json';
 import {defaultChainId} from '../../helpers/networks';
 import CurrencyEth from '../../components/data-display/currency-eth';
 import {calcTokenParams, daoContractAddress} from '../../helpers/dao-contract';
+import ErrorDisplay from '../../components/data-display/error-display';
+import {stringifyError} from '../../helpers/error';
 
 function Line({children}: PropsWithChildren<{}>): JSX.Element {
   return (
@@ -29,20 +31,27 @@ function Line({children}: PropsWithChildren<{}>): JSX.Element {
 }
 
 export default function TripleText(): JSX.Element | null {
-  const {runContractFunction, data} = useApiContract({
+  const {runContractFunction, data, error, isLoading, isFetching} = useApiContract({
     functionName: 'getTokenParams',
     address: daoContractAddress,
     abi: daoAbi.abi,
     chain: defaultChainId as any,
   })
   useEffect(() => {
+    console.log('run getTokenParams contract function', 'contract', daoContractAddress, 'abi', daoAbi.abi, 'chain', defaultChainId)
     runContractFunction().then() // then() to prevent warning
     // eslint-disable-next-line
   }, [])
+  useEffect(() => {
+    console.log('contract call', 'isFetching', isFetching, 'isLoading', isLoading)
+  }, [isFetching, isLoading])
   if (data) {
     const {currentPrice, nextStepPrice, currentSupply, totalSupply} = calcTokenParams(data)
     return (
       <>
+        <ErrorDisplay
+          error={error && stringifyError(error)}
+        />
         <Line>
           <LargeAndSmall
             large={<CurrencyEth wei={currentPrice}/>}
