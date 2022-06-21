@@ -53,7 +53,8 @@ export default function MintResultDialog(
               )
               : (
                 (
-                  result.error?.data?.code === -32000 && (
+                  // errors look different in mainnet and testnet
+                  (result.error?.data?.code === -32000 || result.error?.error?.code === -32000) && (
                     <ErrorDisplay
                       error={`Insufficient funds. Please, deposit ${defaultConfig.currencySymbol} to your address`}
                     />
@@ -62,6 +63,12 @@ export default function MintResultDialog(
                   result.error?.data?.code === 3 && (
                     <ErrorDisplay
                       error={result.error?.data?.message || stringifyError(result.error)}
+                    />
+                  )
+                ) || (
+                  result.error?.error?.code === 3 && (
+                    <ErrorDisplay
+                      error={result.error?.error?.message || stringifyError(result.error)}
                     />
                   )
                 ) || (
