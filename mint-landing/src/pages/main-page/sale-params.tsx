@@ -30,7 +30,7 @@ function Line({children}: PropsWithChildren<{}>): JSX.Element {
   )
 }
 
-export default function TripleText(): JSX.Element | null {
+export default function SaleParams(): JSX.Element | null {
   const {runContractFunction, data, error, isLoading, isFetching} = useApiContract({
     functionName: 'getTokenParams',
     address: daoContractAddress,
@@ -46,7 +46,7 @@ export default function TripleText(): JSX.Element | null {
     console.log('contract call', 'isFetching', isFetching, 'isLoading', isLoading)
   }, [isFetching, isLoading])
   if (data) {
-    const {currentPrice, nextStepPrice, currentSupply, totalSupply} = calcTokenParams(data)
+    const {currentPrice, nextStepPrice, currentSupply, totalSupply, stepRemainder} = calcTokenParams(data)
     return (
       <>
         <ErrorDisplay
@@ -63,6 +63,10 @@ export default function TripleText(): JSX.Element | null {
           />
         </Line>
         <Line>
+          <LargeAndSmall
+            large={`${stepRemainder}`}
+            small={<>Tokens for <CurrencyEth wei={currentPrice}/></>}
+          />
           <LargeAndSmall
             large={`${currentSupply}/${totalSupply}`}
             small={'Tokens sold'}

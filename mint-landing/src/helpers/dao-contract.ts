@@ -82,12 +82,15 @@ export function calcTokenParams(getParamsMethodCallResult: any) {
     nextStepSupply = totalSupply
   }
   const nextStepPrice = startPrice.add(stepValue.mul(nextStepSupply.div(step)))
+  const stepRemainder = step.sub(currentSupply.mod(step))
   return {
-    currentPrice,
-    nextStepPrice,
-    step,
-    stepValue,
-    totalSupply,
-    currentSupply,
+    startPrice, // изначальная цена
+    currentPrice, // текущая цена
+    nextStepPrice, // цена следующего шага
+    step, // токенов в шаге
+    stepValue, // рост цены токена при переходе на следующий шаг
+    totalSupply, // сколько всего будет токенов
+    currentSupply, // сколько уже выпущено токенов
+    stepRemainder, // количество токенов, которые еще можно купить по этой цене
   }
 }
