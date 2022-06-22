@@ -20,10 +20,10 @@ export type MintResult = MintResultSuccess | MintResultError
 type Metadata = typeof metadata
 
 function prepareMetadata(metadataJson: Metadata, currentSupply: BigNumber): Metadata {
-  currentSupply.toNumber().toString().padStart(4, '0')
+  const count = currentSupply.toNumber().toString().padStart(4, '0')
   return {
     ...metadataJson,
-    name: `${metadataJson.name} #${currentSupply.toNumber().toString().padStart(3, '0')}`
+    name: `${metadataJson.name} #${count}`
   }
 }
 
