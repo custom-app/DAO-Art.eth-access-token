@@ -13,6 +13,7 @@ import Moralis from 'moralis';
 import {useAuthModalContext} from './auth-modal-context';
 import ErrorDisplay from '../../data-display/error-display';
 import AddressWithExplorer from '../address-with-explorer';
+import {stringifyError} from '../../../helpers/error';
 
 const noEthereumProviderError = 'Error: Non ethereum enabled browser'
 const userClosedModalError = 'Error: User closed modal'
@@ -61,7 +62,10 @@ function Account() {
           <DialogContent
             sx={{
               width: 340,
-              padding: 2,
+              padding: {
+                xs: 1,
+                md: 2,
+              },
             }}
           >
             <Box
@@ -100,15 +104,22 @@ function Account() {
                       setIsAuthModalVisible(false);
                       await changeAndAddNetwork(web3Provider, defaultChainId)
                     } catch (e: any) {
+                      await logout();
+                      window.localStorage.removeItem("connectorId");
                       const s = e + '';
                       if (s === noEthereumProviderError) {
                         setError('Please, install MetaMask or another wallet');
                       } else if (s === notFinishedError || e?.code === -32002) {
                         setError('Please, open the wallet');
-                      } else if (s === userClosedModalError) {
-                        console.error(e);
-                      } else {
-                        setError(e + '')
+                      } else if (
+                        // this error is just ignored
+                        s !== userClosedModalError
+                      ) {
+                        if (e?.message) {
+                          setError(e.message)
+                        } else {
+                          setError(stringifyError(e))
+                        }
                       }
                     }
                   }}
