@@ -11,7 +11,7 @@ const pad = 6
 const fontSize = '1.2rem'
 
 export default function MintButton(): JSX.Element {
-  const {setIsAuthModalVisible} = useAuthModalContext()
+  const {setIsAuthModalVisible, authState} = useAuthModalContext()
   const {account, chainId, web3} = useMoralis()
   const [resultDialogOpen, setResultDialogOpen] = useState(false)
   const [mintResult, setMintResult] = useState<MintResult>()
@@ -60,13 +60,13 @@ export default function MintButton(): JSX.Element {
             border: 2,
           }
         }}
-        onClick={() => account ? onMint() : setIsAuthModalVisible(true)}
-        disabled={Boolean(account && chainId !== defaultChainId)}
+        onClick={() => authState === 'ok' ? onMint() : setIsAuthModalVisible(true)}
+        disabled={Boolean(account && chainId !== defaultChainId) || authState === 'pending'}
       >
         {
-          account
-            ? (<span>Mint NFT</span>)
-            : (<span>Connect wallet</span>)
+          authState === 'ok' ? (<span>Mint NFT</span>) :
+            authState === 'pending' ? (<span>Check you wallet</span>) :
+              (<span>Connect wallet</span>)
         }
       </Button>
       <MintResultDialog

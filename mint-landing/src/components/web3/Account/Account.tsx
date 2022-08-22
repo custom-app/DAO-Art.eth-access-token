@@ -20,7 +20,7 @@ const userClosedModalError = 'Error: User closed modal'
 const notFinishedError = 'Error: Cannot execute Moralis.enableWeb3(), as Moralis Moralis.enableWeb3() already has been called, but is not finished yet'
 
 function Account() {
-  const {isAuthModalVisible, setIsAuthModalVisible} = useAuthModalContext()
+  const {isAuthModalVisible, setIsAuthModalVisible, setAuthState} = useAuthModalContext()
   const {account, logout} =
     useMoralis();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -91,6 +91,7 @@ function Account() {
                   onClick={async () => {
                     try {
                       setError('');
+                      setAuthState('pending')
                       const chainId = Number.parseInt(defaultChainId, 16);
                       console.log('chainId', chainId);
                       const provider = (connectorId as Moralis.Web3ProviderType);
@@ -101,9 +102,11 @@ function Account() {
                         provider,
                       })
                       window.localStorage.setItem("connectorId", connectorId);
-                      setIsAuthModalVisible(false);
+                      setIsAuthModalVisible(false)
+                      setAuthState('ok')
                       await changeAndAddNetwork(web3Provider, defaultChainId)
                     } catch (e: any) {
+                      setAuthState('no')
                       await logout();
                       window.localStorage.removeItem("connectorId");
                       const s = e + '';
@@ -217,9 +220,10 @@ function Account() {
               borderRadius: "0.5rem",
             }}
             onClick={async () => {
-              await logout();
-              window.localStorage.removeItem("connectorId");
-              setIsModalVisible(false);
+              setAuthState('no')
+              await logout()
+              window.localStorage.removeItem("connectorId")
+              setIsModalVisible(false)
             }}
             variant="outlined"
             color="primary"
