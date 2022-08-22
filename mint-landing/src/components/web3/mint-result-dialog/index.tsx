@@ -72,6 +72,12 @@ export default function MintResultDialog(
                     />
                   )
                 ) || (
+                  result.error?.code === 4001 && (
+                    <ErrorDisplay
+                      error={result.error?.message || stringifyError(result.error)}
+                    />
+                  )
+                ) || (
                   <ErrorDisplay
                     error={stringifyError(result.error)}
                   />

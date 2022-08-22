@@ -1,5 +1,5 @@
 import {Box} from '@mui/material';
-import TripleText from './triple-text';
+import SaleParams from './sale-params';
 import Headline from './headline';
 import NftBalance from '../../components/web3/nft-balance';
 
@@ -26,7 +26,7 @@ export default function MainPage(): JSX.Element {
       >
         <Headline/>
       </Box>
-      <TripleText/>
+      <SaleParams/>
       <Box
         sx={{
           marginTop: {
