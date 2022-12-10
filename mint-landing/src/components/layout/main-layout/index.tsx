@@ -41,6 +41,7 @@ export default function MainLayout({children}: MainLayoutProps): JSX.Element {
               display: 'none'
             },
             scrollbarWidth: 'none',
+            paddingBottom: 6,
           }}
         >
           {children}

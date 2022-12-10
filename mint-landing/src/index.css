@@ -26,8 +26,12 @@ dd {
   margin: 0;
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  min-height: 100vh;
+  height: 100%;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
@@ -72,8 +76,8 @@ select {
 
 /* Animation */
 .animate-headline {
-  animation: animated-text 2s steps(11,end) 1s 1 normal both,
-  animated-cursor 1200ms steps(11,end) infinite;
+  animation: animated-text 2s steps(18,end) 1s 1 normal both,
+  animated-cursor 1200ms steps(18,end) infinite;
 }
 
 /* text animation */
@@ -82,7 +86,6 @@ select {
   from{width: 0;}
   to{width: 100%;}
 }
-
 /* cursor animations */
 
 @keyframes animated-cursor{

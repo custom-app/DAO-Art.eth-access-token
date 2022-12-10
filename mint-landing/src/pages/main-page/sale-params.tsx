@@ -9,17 +9,18 @@ import {calcTokenParams, daoContractAddress} from '../../helpers/dao-contract';
 import ErrorDisplay from '../../components/data-display/error-display';
 import {stringifyError} from '../../helpers/error';
 
-function Line({children}: PropsWithChildren<{}>): JSX.Element {
+function Grid({children}: PropsWithChildren<{}>): JSX.Element {
   return (
     <Box
       sx={{
-        display: 'flex',
+        display: 'grid',
         justifyContent: 'center',
-        gap: {
-          xs: 4,
-          md: 8,
+        gridTemplateColumns: '1fr 1fr',
+        columnGap: {
+          xs: 3,
+          md: 7,
         },
-        marginBottom: {
+        rowGap: {
           xs: 2,
           md: 3,
         },
@@ -52,26 +53,31 @@ export default function SaleParams(): JSX.Element | null {
         <ErrorDisplay
           error={error && stringifyError(error)}
         />
-        <Line>
-          <LargeAndSmall
-            large={<CurrencyEth wei={currentPrice}/>}
-            small={'Current price'}
-          />
-          <LargeAndSmall
-            large={<CurrencyEth wei={nextStepPrice}/>}
-            small={'Next price'}
-          />
-        </Line>
-        <Line>
-          <LargeAndSmall
-            large={`${stepRemainder}`}
-            small={<>Tokens for <CurrencyEth wei={currentPrice}/></>}
-          />
-          <LargeAndSmall
-            large={`${currentSupply}/${totalSupply}`}
-            small={'Tokens sold'}
-          />
-        </Line>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Grid>
+            <LargeAndSmall
+              large={<CurrencyEth wei={currentPrice}/>}
+              small={'Current price'}
+            />
+            <LargeAndSmall
+              large={<CurrencyEth wei={nextStepPrice}/>}
+              small={'Next price'}
+            />
+            <LargeAndSmall
+              large={`${stepRemainder}`}
+              small={<>NFTs left for <CurrencyEth wei={currentPrice}/></>}
+            />
+            <LargeAndSmall
+              large={`${currentSupply}/${totalSupply}`}
+              small={'High Council Members'}
+            />
+          </Grid>
+        </Box>
       </>
     )
   }

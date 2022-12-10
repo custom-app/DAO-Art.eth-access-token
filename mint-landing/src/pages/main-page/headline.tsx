@@ -3,15 +3,15 @@ import LargeAndSmall from '../../components/data-display/large-and-small';
 export default function Headline(): JSX.Element {
   return (
     <LargeAndSmall
-      large={'DAO-Art.eth'}
-      small={'Genesis Membership'}
+      large={'Web3Jedis Holocron'}
+      small={'Mint to access the High Council'}
       typographyL={{
-        xs: 'h3',
-        md: 'h1',
+        xs: 'h4',
+        md: 'h2',
       }}
       typographyS={{
-        xs: 'h5',
-        md: 'h3',
+        xs: 'h6',
+        md: 'h4',
       }}
       className="animate-headline"
     />

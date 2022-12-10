@@ -18,6 +18,7 @@ export const appTheme = createTheme({
     }
   },
   typography: {
+    htmlFontSize: 17,
     fontFamily: '"Source Code Pro", monospace',
     h1: customFontDefaults,
     h2: customFontDefaults,

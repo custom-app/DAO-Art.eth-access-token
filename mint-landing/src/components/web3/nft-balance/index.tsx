@@ -53,6 +53,24 @@ export default function NftBalance(): JSX.Element {
     }
   }
   return (
-    <MintButton/>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
+        gap: 2,
+      }}
+    >
+      <Box
+        sx={{
+          typography: 'body1',
+          textAlign: 'center',
+        }}
+      >
+        May the Force be with You
+      </Box>
+      <MintButton/>
+    </Box>
   )
 }

@@ -17,12 +17,12 @@ export default function LargeAndSmall(
     large,
     small,
     typographyL = {
-      xs: 'h4',
-      md: 'h2',
+      xs: 'h5',
+      md: 'h3',
     },
     typographyS = {
-      xs: 'body1',
-      md: 'h6',
+      xs: 'body2',
+      md: 'body1',
     },
     opacity,
     className,
@@ -42,7 +42,7 @@ export default function LargeAndSmall(
       <Box
         sx={{
           typography: typographyL,
-          marginBottom: 1,
+          marginBottom: 1
         }}
         className={className}
       >

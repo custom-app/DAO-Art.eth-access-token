@@ -12,16 +12,11 @@ export default function MainPage(): JSX.Element {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100%',
-        paddingTop: 4,
-        paddingBottom: 4,
       }}
     >
       <Box
         sx={{
-          marginBottom: {
-            xs: 4,
-            md: 8,
-          }
+          marginBottom: 8,
         }}
       >
         <Headline/>
@@ -29,10 +24,7 @@ export default function MainPage(): JSX.Element {
       <SaleParams/>
       <Box
         sx={{
-          marginTop: {
-            xs: 3,
-            md: 6,
-          },
+          marginTop: 6,
         }}
       >
         <NftBalance/>
